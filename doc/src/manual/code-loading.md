@@ -1,9 +1,13 @@
 # Code Loading
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 When a Julia program does `import X` or `using X` the identity and location of the package `X` is resolved in terms of the `LOAD_PATH` and `DEPOT_PATH` global variables. Julia packages are identified by UUID – "[Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier)" – assigned to each package when it is created. This UUID identifies the package premanently, even if it is renamed, its repository location, changed, it changes of ownership/maintainership, or someone forks is (unless they fork it with the intention of creating a *new* separate package, in which case they must change the UUID). UUIDs provide a simple answer to the question of whether two Julia source trees are "the same package": if they have the same UUID in their project files, then they are the same package, otherwise they are not.
 =======
 When a Julia program does `import X` or `using X` the identity and location of the package `X` is resolved in terms of the `LOAD_PATH` and `DEPOT_PATH` global variables. Julia packages are identified by UUID – "[Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier)". Each package is assigned a unique UUID upon creation. This UUID identifies the package persistently across package renames, repository relocation, changes of ownership/maintainership, and package forks. The question of whether two Julia package trees are "the same package" can be definitively and simply be answered by whether they have the same UUID or not.
+>>>>>>> wip
+=======
+When a Julia program does `import X` or `using X` the identity and location of the package `X` is resolved in terms of the `LOAD_PATH` and `DEPOT_PATH` global variables. Julia packages are identified by UUID – "[Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier)" – assigned to each package when it is created. This UUID identifies the package premanently, even if it is renamed, its repository location, changed, it changes of ownership/maintainership, or someone forks is (unless they fork it with the intention of creating a *new* separate package, in which case they must change the UUID). UUIDs provide a simple answer to the question of whether two Julia source trees are "the same package": if they have the same UUID in their project files, then they are the same package, otherwise they are not.
 >>>>>>> wip
 
 !!! note
