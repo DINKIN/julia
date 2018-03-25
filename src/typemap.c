@@ -626,21 +626,21 @@ static jl_typemap_entry_t *jl_typemap_lookup_by_type_(jl_typemap_entry_t *ml, jl
         if (world < ml->min_world || world > (ml->max_world | max_world_mask))
             continue;
         // TODO: more efficient
-        jl_value_t *a = types;
-        jl_value_t *b = (jl_value_t*)ml->sig;
-        while (jl_is_unionall(a)) a = ((jl_unionall_t*)a)->body;
-        while (jl_is_unionall(b)) b = ((jl_unionall_t*)b)->body;
-        size_t na = jl_nparams(a), nb = jl_nparams(b);
-        assert(na > 0 && nb > 0);
-        if (!jl_is_vararg_type(jl_tparam(a,na-1)) && !jl_is_vararg_type(jl_tparam(b,nb-1))) {
+        jl_value_t *a = jl_unwrap_unionall(types);
+        jl_value_t *b = jl_unwrap_unionall((jl_value_t*)ml->sig);
+        size_t na = jl_nparams(a);
+        size_t nb = jl_nparams(b);
+        int va_a = na > 0 && jl_is_vararg_type(jl_tparam(a, na - 1));
+        int va_b = nb > 0 && jl_is_vararg_type(jl_tparam(b, nb - 1));
+        if (!va_a && !va_b) {
             if (na != nb)
                 continue;
         }
-        if (na > 1 && nb > 1) {
-            if (jl_obviously_unequal(jl_tparam(a,1), jl_tparam(b,1)))
+        if (na >= (1 - va_a) && nb > (1 - va_b)) {
+            if (jl_obviously_unequal(jl_tparam(a, 1), jl_tparam(b, 1)))
                 continue;
-            if (na > 2 && nb > 2) {
-                if (jl_obviously_unequal(jl_tparam(a,2), jl_tparam(b,2)))
+            if (na > (2 - va_a) && nb > (2 - va_b)) {
+                if (jl_obviously_unequal(jl_tparam(a, 2), jl_tparam(b, 2)))
                     continue;
             }
         }
