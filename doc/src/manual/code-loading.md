@@ -2,6 +2,15 @@
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+Julia has two different mechanisms for code loading:
+
+1. Relative code inclusion via `include("source.jl")`. This behaves as if the contents of the file `source.jl` were textually included at the point where the `include` call occurs. The `include` mechanism allows you to split a single project code base across multiple source files. Source paths are interpreted relative to the source file in which the `include` call occurs and in the REPL they are interpreted relative to the current working directory.
+
+2. Package loading via `import X` or `using X`.
+
+>>>>>>> wip
 When a Julia program does `import X` or `using X` the identity and location of the package `X` is resolved in terms of the `LOAD_PATH` and `DEPOT_PATH` global variables. Julia packages are identified by UUID – "[Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier)" – assigned to each package when it is created. This UUID identifies the package premanently, even if it is renamed, its repository location, changed, it changes of ownership/maintainership, or someone forks is (unless they fork it with the intention of creating a *new* separate package, in which case they must change the UUID). UUIDs provide a simple answer to the question of whether two Julia source trees are "the same package": if they have the same UUID in their project files, then they are the same package, otherwise they are not.
 =======
 When a Julia program does `import X` or `using X` the identity and location of the package `X` is resolved in terms of the `LOAD_PATH` and `DEPOT_PATH` global variables. Julia packages are identified by UUID – "[Universally unique identifier](https://en.wikipedia.org/wiki/Universally_unique_identifier)". Each package is assigned a unique UUID upon creation. This UUID identifies the package persistently across package renames, repository relocation, changes of ownership/maintainership, and package forks. The question of whether two Julia package trees are "the same package" can be definitively and simply be answered by whether they have the same UUID or not.
@@ -11,7 +20,7 @@ When a Julia program does `import X` or `using X` the identity and location of t
 >>>>>>> wip
 
 !!! note
-	Julia package UUIDs serve a similar purpose to Java's reversed domain package names. For example, in Java you might see `import com.sun.net.httpserver.HttpServer;` which imports the `HttpServer` class from the `com.sun.net.httpserver`. This package name suggests that the `httpserver` package is maintained by Sun Microsystems, the former owner of `sun.com`. Of course, Sun Microsystems no longer exists, having been acquired by Orcale in 2010. The `com.sun` packages are permanent, however, and even if Oracle hit rough times and decided to auction off its `sun.com` domain, all Java code everywhere would continue to include this no-longer relevant domain. Since UUIDs lack have no meaning, they don't have this problem. On the flip side, they are very hard for humans to remember ot types. Fortnately, Julia's [package manager](https://julialang.org/Pkg3.jl/latest/) keeps UUIDs mostly out of sight and they never appear in your Julia code.
+	Julia package UUIDs serve a similar purpose to Java's reversed domain package names. For example, in Java you might see `import com.sun.net.httpserver.HttpServer;` which imports the `HttpServer` class from the `com.sun.net.httpserver`. This package name suggests that the `httpserver` package is maintained by Sun Microsystems, the former owner of `sun.com`. Of course, Sun Microsystems no longer exists, having been acquired by Orcale in 2010. The `com.sun` prefix of these packages is permanent, however, and even if Oracle hit rough times and decided to auction off its `sun.com` domain, all Java code everywhere would have to continue to include this no-longer relevant domain. Since UUIDs lack have no meaning, they don't have this problem. On the flip side, they are very hard for humans to remember ot types. Fortnately, Julia's [package manager](https://julialang.org/Pkg3.jl/latest/) keeps UUIDs mostly out of sight and they never appear in your Julia code.
 
 for example, but since UUIDs have no meaning, they can handle package renames and even changing the controlling entitity of a package. In the case, for example, Sun Microsystems no longer exists, and `sun.com` redirects to `oracle.com`. 
 
